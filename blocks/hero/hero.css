@@ -21,9 +21,9 @@
   background: white;
   padding: 32px 32px 64px 32px;
   position: absolute;
-  right: 0;
+  right: 40px;
   width: 50%;
-  bottom:0;
+  bottom: 40px;
 }
 .hero picture {
   display: block;
@@ -45,7 +45,7 @@
     /* padding: 40px 32px; */
     padding:0;
   }
-  .hero-container .hero-wrapper {max-width: 1600px;height:840px}
+  .hero-container .hero-wrapper {max-width: 1600px;}
   .hero.block{
     position: relative;
   }
