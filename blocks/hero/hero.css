@@ -14,14 +14,24 @@
   margin-left: auto;
   margin-right: auto;
   color: var(--background-color);
-}
+  color:#0033a0;
 
-.hero picture {
+}
+.hero div.heroContent{
+  background: white;
+  padding: 32px 32px 64px 32px;
   position: absolute;
+  right: 0;
+  width: 50%;
+  bottom:0;
+}
+.hero picture {
+  display: block;
+  /* position: absolute;
   z-index: -1;
   inset: 0;
   object-fit: cover;
-  box-sizing: border-box;
+  box-sizing: border-box; */
 }
 
 .hero img {
@@ -32,6 +42,15 @@
 
 @media (width >= 900px) {
   .hero {
-    padding: 40px 32px;
+    /* padding: 40px 32px; */
+    padding:0;
   }
+  .hero-container .hero-wrapper {max-width: 1600px;height:840px}
+  .hero.block{
+    position: relative;
+  }
+  /* .hero.block > div{
+position:absolute;
+    width:50%;right:0;
+  } */
 }
