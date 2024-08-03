@@ -33,6 +33,10 @@
   color: white;
 }
 
+.cards  > ul > li:first-of-type .cards-card-body .button-container .button {
+  color: white;
+}
+
 .cards .cards-card-body p:first-of-type {
   font-size: 20px;
     color: #0033a0;
@@ -57,4 +61,17 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
- 
+
+.cards .cards-card-body .button-container .button {
+  border: transparent;
+  background: transparent;
+  font-size: 18px;
+  line-height: 24px;
+  color: #0033a0;
+  font-weight: bold;
+  padding-left: 0;
+}
+
+.cards .cards-card-body .button-container .button:hover {
+  text-decoration-line: underline;
+}
