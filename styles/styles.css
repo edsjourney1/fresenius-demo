@@ -255,3 +255,19 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+
+
+
+
+
+  @media (min-width: 1024px) {
+    main > .section > div {
+          max-width: 1024px;
+      }
+  }
+
+  @media (min-width: 1680px) {
+    main > .section > div {
+          max-width: 1680px;
+      }
+  }

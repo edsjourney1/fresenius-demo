@@ -3,21 +3,53 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  grid-gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(456px, 1fr));
+  grid-gap: 48px;
 }
 
 .cards > ul > li {
   border: 1px solid #dadada;
   background-color: var(--background-color);
+  border: transparent;
+  background-color: transparent;
 }
 
+.cards > ul > li:hover > .cards-card-image {
+  box-shadow : 0 0 10px 2px rgba(0, 0, 0, .25);
+}
+
+
 .cards .cards-card-body {
-  margin: 16px;
+  margin: 0;
+  padding: 32px 24px;
+}
+
+.cards > ul > li:first-of-type {
+  background: #071b45;
+  color: white;
+}
+
+.cards  > ul > li:first-of-type .cards-card-body p:first-of-type  {
+  color: white;
+}
+
+.cards .cards-card-body p:first-of-type {
+  font-size: 20px;
+    color: #0033a0;
+    line-height: 28px;
+}
+
+.cards .cards-card-body p:nth-child(2) {
+  margin-top: 0;
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 28px
 }
 
 .cards .cards-card-image {
   line-height: 0;
+  border-radius: 0.25rem;
+  overflow: hidden;
 }
 
 .cards > ul > li img {
@@ -25,3 +57,4 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
+ 
