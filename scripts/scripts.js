@@ -28,27 +28,29 @@ import {
 //     main.prepend(section);
 //   }
 // }
-function buildHeroBlock(main) {
-    const h1 = main.querySelector('h1');
-    
-    const picture = main.querySelector('picture');
+function buildHeroBlock(main) { 
+  const h1 = main.querySelector('h1'); 
+   var elements = main.querySelectorAll('div');
 
-    // eslint-disable-next-line no-bitwise
-    if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
-        const section = document.createElement('div');
-        const heroContent = document.createElement('div'); // Create a new div with class 'heroContent'
-        heroContent.classList.add('heroContent'); // Add the class 'heroContent' to the div
+  const picture = main.querySelector('picture');
 
-        // Append the h1 element to the heroContent div
-        heroContent.append(h1);
-        
+  // eslint-disable-next-line no-bitwise
+  if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
+      const section = document.createElement('div');
+      const heroContent = document.createElement('div'); // Create a new div with class 'heroContent'
+      heroContent.classList.add('heroContent'); // Add the class 'heroContent' to the div
 
-        // Append the heroContent div and picture element to the section
-        section.append(buildBlock('hero', { elems: [picture, heroContent] }));
+      // Append the h1 element to the heroContent div
+      heroContent.append(h1);
+      heroContent.appendChild(elements[0]);
 
-        // Prepend the section to the main content area
-        main.prepend(section);
-    }
+
+      // Append the heroContent div and picture element to the section
+      section.append(buildBlock('hero', { elems: [picture, heroContent] }));
+
+      // Prepend the section to the main content area
+      main.prepend(section);
+  }
 }
 
 /**
