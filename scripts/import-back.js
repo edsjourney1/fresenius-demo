@@ -72,9 +72,19 @@
 //   table.append(tbody);
 //   return table;
 // };
-
 const createCardTable = (main, document) => {
     const cards = Array.from(document.querySelectorAll('.card'));
+    
+    // Create the table and the header row
+    const table = document.createElement('table');
+    const tbody = document.createElement('tbody');
+    
+    const headerRow = document.createElement('tr');
+    const headerCell = document.createElement('td');
+    headerCell.textContent = 'Card';
+    headerCell.colSpan = 2;
+    headerRow.append(headerCell);
+    tbody.append(headerRow);
     
     cards.forEach(card => {
       // Extract image source
@@ -108,74 +118,38 @@ const createCardTable = (main, document) => {
         link.textContent = linkText;
       }
   
-      // Create table rows
-      const rows = [
-        createRow(['Card'], document, true), // Header row with colspan 2
-        createRow([imgElement, createContent(title, description, link, document)], document)
-      ];
-  
-      // Create a table from rows and append to main
-      const table = createTable(rows, document);
-      main.append(table);
-    });
-  };
-  
-  // Utility function to create a row
-  const createRow = (cells, document, isHeader = false) => {
-    const row = document.createElement('tr');
-    
-    if (isHeader) {
-      const cell = document.createElement('td');
-      cell.textContent = cells[0];
-      cell.colSpan = 2;
-      row.append(cell);
-    } else {
-      cells.forEach(content => {
-        const cell = document.createElement('td');
-        if (typeof content === 'string') {
-          cell.textContent = content;
-        } else {
-          cell.append(content);
-        }
-        row.append(cell);
-      });
-    }
-    
-    return row;
-  };
-  
-  // Utility function to create a content cell
-  const createContent = (title, description, link, document) => {
-    const div = document.createElement('div');
-    
-    const heading = document.createElement('h3');
-    heading.textContent = title;
-    div.append(heading);
-    
-    const desc = document.createElement('p');
-    desc.textContent = description;
-    div.append(desc);
-    
-    if (link) {
-      div.append(link);
-    }
-    
-    return div;
-  };
-  
-  // Utility function to create a table from rows array
-  const createTable = (rows, document) => {
-    const table = document.createElement('table');
-    const tbody = document.createElement('tbody');
-  
-    rows.forEach(row => {
+      // Create a row for the card
+      const row = document.createElement('tr');
+      const imageCell = document.createElement('td');
+      const contentCell = document.createElement('td');
+      
+      if (imgElement) {
+        imageCell.append(imgElement);
+      }
+      
+      const contentDiv = document.createElement('div');
+      const heading = document.createElement('h3');
+      heading.textContent = title;
+      contentDiv.append(heading);
+      
+      const desc = document.createElement('p');
+      desc.textContent = description;
+      contentDiv.append(desc);
+      
+      if (link) {
+        contentDiv.append(link);
+      }
+      
+      contentCell.append(contentDiv);
+      row.append(imageCell);
+      row.append(contentCell);
+      
       tbody.append(row);
     });
-  
+    
     table.append(tbody);
-    return table;
+    main.append(table);
   };
-
 // Usage example
 const mainElement = document.querySelector('main');
 createCardTable(mainElement, document);
