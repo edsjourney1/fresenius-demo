@@ -191,6 +191,28 @@ function prependTableHeader(main, document) {
       list.insertAdjacentElement('beforebegin', table);
     });
   }
+
+  function recreateList(main, document) {
+    // Select all unordered lists with the class 'list unordered' within the main element
+    const lists = main.querySelectorAll('.list.unordered');
+  
+    lists.forEach((list) => {
+      // Create a new ul element
+      const newUl = document.createElement('ul');
+      newUl.classList.add('new-list');
+  
+      // Iterate over the original li elements and append them to the new ul
+      const originalLis = list.querySelectorAll('li');
+      originalLis.forEach((li) => {
+        const newLi = document.createElement('li');
+        newLi.textContent = li.textContent;
+        newUl.appendChild(newLi);
+      });
+  
+      // Append the new ul to the main element
+      main.appendChild(newUl);
+    });
+  }
 // -----------------------------------------------------------------------------
   export default {
     /**
@@ -233,8 +255,8 @@ function prependTableHeader(main, document) {
       const mainElement = document.querySelector('main');
       createCardTable(mainElement, document);
       prependTableHeader(mainElement, document);
-      prependTableToList(mainElement, document)
-    
+      prependTableToList(mainElement, document);
+      recreateList(mainElement, document);
 
       return main;
       
