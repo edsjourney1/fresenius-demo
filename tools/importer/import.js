@@ -195,61 +195,49 @@ function prependNewsSectionMetadata(document) {
     mainElement.prepend(table);
 }
   // ----------------------------------------------------------------------------
-  // List
-  function prependTableToList(main, document) {
-    // Select all unordered lists with the class 'list unordered' within the main element
-    const lists = document.querySelectorAll('.list.unordered');
+  function addLeftSection(document) {
+    // Find the parent div with the class 'flex flex-wrap flex-col-reverse'
+    const parentDiv = document.querySelector('div.flex.flex-wrap.flex-col-reverse');
     
-    lists.forEach((list) => {
-      // Create the table element
-      const table = document.createElement('table');
-      table.classList.add('metadata-table');
-  
-      // Create the first row
-      const firstRow = document.createElement('tr');
-      const firstRowCell = document.createElement('td');
-      firstRowCell.setAttribute('colspan', '2');
-      firstRowCell.textContent = 'Library Metadata';
-      firstRow.appendChild(firstRowCell);
-  
-      // Create the second row
-      const secondRow = document.createElement('tr');
-      const secondRowCell1 = document.createElement('td');
-      secondRowCell1.textContent = 'Name';
-      const secondRowCell2 = document.createElement('td');
-      secondRowCell2.textContent = 'List';
-      secondRow.appendChild(secondRowCell1);
-      secondRow.appendChild(secondRowCell2);
-  
-      // Append rows to the table
-      table.appendChild(firstRow);
-      table.appendChild(secondRow);
-  
-      // Insert the table before the list
-      list.insertAdjacentElement('beforebegin', table);
-    });
-  }
+    if (!parentDiv) {
+        console.error("No div with the class 'flex flex-wrap flex-col-reverse' found.");
+        return;
+    }
 
-  function recreateList(main, document) {
-    // Select all unordered lists with the class 'list unordered' within the main element
-    const lists = main.querySelectorAll('.unordered');
-    lists.forEach((list) => {
-      // Create a new ul element
-      const newUl = document.createElement('ul');
-      newUl.classList.add('new-list');
-  
-      // Iterate over the original li elements and append them to the new ul
-      const originalLis = list.querySelectorAll('li');
-      originalLis.forEach((li) => {
-        const newLi = document.createElement('li');
-        newLi.textContent = li.textContent;
-        newUl.appendChild(newLi);
-      });
-  
-      // Append the new ul to the main element
-      main.appendChild(newUl);
-    });
-  }
+    // Find the first child div inside the parent
+    const firstChildDiv = parentDiv.querySelector('div');
+
+    if (!firstChildDiv) {
+        console.error("No child div found inside the parent div.");
+        return;
+    }
+
+    // Create a new table element
+    const table = document.createElement('table');
+
+    // Create the first row
+    const firstRow = document.createElement('tr');
+    const firstRowCell = document.createElement('td');
+    firstRowCell.setAttribute('colspan', '2');
+    firstRowCell.textContent = 'Section Metadata';
+    firstRow.appendChild(firstRowCell);
+
+    // Create the second row
+    const secondRow = document.createElement('tr');
+    const styleCell = document.createElement('td');
+    styleCell.textContent = 'style';
+    const leftSectionCell = document.createElement('td');
+    leftSectionCell.textContent = 'left-section';
+    secondRow.appendChild(styleCell);
+    secondRow.appendChild(leftSectionCell);
+
+    // Append both rows to the table
+    table.appendChild(firstRow);
+    table.appendChild(secondRow);
+
+    // Prepend the table to the first child div of the parent div
+    firstChildDiv.prepend(table);
+}
 //---------------------------------------------------------------------------
 //recreate paragraph links
 function processParagraphLinks(main, document) {
@@ -311,8 +299,7 @@ function processParagraphLinks(main, document) {
         'footer',
         'iframe',
         'noscript',
-        "breadcrumb",
-        "div.lg"
+        ".breadcrumb"
   
       ]);
   
@@ -331,10 +318,15 @@ function processParagraphLinks(main, document) {
       const mainElement = document.querySelector('main');
       createCardTable(mainElement, document);
       prependTableHeader(mainElement, document);
-      prependTableToList(mainElement, document);
-      recreateList(mainElement, document);          
+      
     processParagraphLinks(mainElement, document);  
     prependNewsSectionMetadata(document);
+
+    addLeftSection(document)
+
+    // prependSection('.md:w-7/12.lg:w-7/12', 'news-left');
+    // prependSection('.md:w-5/12.md:pl-12.md:pb-0.lg:w-4/12.pb-8', 'right-section');
+
       return main;
       
     },
