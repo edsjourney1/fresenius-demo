@@ -197,22 +197,14 @@ function prependNewsSectionMetadata(document) {
   // ----------------------------------------------------------------------------
   function addLeftSection(document) {
     // Find the parent div with the class 'flex flex-wrap flex-col-reverse'
-    const parentDiv = document.querySelector('div.flex.flex-wrap.flex-col-reverse');
+    const parentDiv = document.querySelector('div.flex.flex-wrap.flex-col-reverse div.lg:block');
+    parentDiv.before(document.createElement('hr'));
+    
     
     if (!parentDiv) {
         console.error("No div with the class 'flex flex-wrap flex-col-reverse' found.");
         return;
     }
-
-    // Find the first child div inside the parent
-    const firstChildDiv = parentDiv.querySelector('div');
-
-    if (!firstChildDiv) {
-        console.error("No child div found inside the parent div.");
-        return;
-    }
-
-    // Create a new table element
     const table = document.createElement('table');
 
     // Create the first row
@@ -236,8 +228,46 @@ function prependNewsSectionMetadata(document) {
     table.appendChild(secondRow);
 
     // Prepend the table to the first child div of the parent div
-    firstChildDiv.prepend(table);
+    parentDiv.prepend(table);
+    
 }
+function addRightSection(document) {
+    // Find the parent div with the class 'flex flex-wrap flex-col-reverse'
+    const parentDiv = document.querySelector('div.pb-8');
+    parentDiv.before(document.createElement('hr'));
+    
+    
+    if (!parentDiv) {
+        console.error("No div with the class 'flex flex-wrap flex-col-reverse' found.");
+        return;
+    }
+    const table = document.createElement('table');
+
+    // Create the first row
+    const firstRow = document.createElement('tr');
+    const firstRowCell = document.createElement('td');
+    firstRowCell.setAttribute('colspan', '2');
+    firstRowCell.textContent = 'Section Metadata';
+    firstRow.appendChild(firstRowCell);
+
+    // Create the second row
+    const secondRow = document.createElement('tr');
+    const styleCell = document.createElement('td');
+    styleCell.textContent = 'style';
+    const leftSectionCell = document.createElement('td');
+    leftSectionCell.textContent = 'right-section';
+    secondRow.appendChild(styleCell);
+    secondRow.appendChild(leftSectionCell);
+
+    // Append both rows to the table
+    table.appendChild(firstRow);
+    table.appendChild(secondRow);
+
+    // Prepend the table to the first child div of the parent div
+    parentDiv.prepend(table);
+    
+}
+
 //---------------------------------------------------------------------------
 //recreate paragraph links
 function processParagraphLinks(main, document) {
@@ -322,8 +352,8 @@ function processParagraphLinks(main, document) {
     processParagraphLinks(mainElement, document);  
     prependNewsSectionMetadata(document);
 
-    addLeftSection(document)
-
+    addLeftSection(document);
+    addRightSection(document);
     // prependSection('.md:w-7/12.lg:w-7/12', 'news-left');
     // prependSection('.md:w-5/12.md:pl-12.md:pb-0.lg:w-4/12.pb-8', 'right-section');
 
