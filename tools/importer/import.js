@@ -194,8 +194,7 @@ function prependTableHeader(main, document) {
 
   function recreateList(main, document) {
     // Select all unordered lists with the class 'list unordered' within the main element
-    const lists = main.querySelectorAll('.list.unordered');
-  
+    const lists = main.querySelectorAll('.unordered');
     lists.forEach((list) => {
       // Create a new ul element
       const newUl = document.createElement('ul');
@@ -213,6 +212,48 @@ function prependTableHeader(main, document) {
       main.appendChild(newUl);
     });
   }
+//---------------------------------------------------------------------------
+//recreate paragraph links
+function processParagraphLinks(main, document) {
+    // Select all <p> tags within the main element
+    const paragraphs = main.querySelectorAll('p');
+  
+    paragraphs.forEach((p) => {
+      // Select all <a> tags within each <p> tag
+      const links = p.querySelectorAll('a');
+  
+      links.forEach((link) => {
+        // Extract the href and text content of the <a> tag
+        const href = link.href;
+        const text = link.textContent;
+  
+        // Create a new <a> element
+        const newLink = document.createElement('a');
+        newLink.href = href;
+        newLink.textContent = text;
+  
+        // Add any existing classes or attributes from the original link
+        Array.from(link.attributes).forEach(attr => {
+          if (attr.name !== 'href') {  // Exclude href as it's already set
+            newLink.setAttribute(attr.name, attr.value);
+          }
+        });
+  
+        // Check if the original link has the 'external' class
+        if (link.classList.contains('external')) {
+          newLink.classList.add('external');
+        }
+  
+        // Replace the original <a> tag with the new one
+        p.replaceChild(newLink, link);
+      });
+    });
+  }
+  
+ 
+  
+
+
 // -----------------------------------------------------------------------------
   export default {
     /**
@@ -238,6 +279,7 @@ function prependTableHeader(main, document) {
         'iframe',
         'noscript',
         "breadcrumb",
+        "div.lg"
   
       ]);
   
@@ -256,8 +298,8 @@ function prependTableHeader(main, document) {
       createCardTable(mainElement, document);
       prependTableHeader(mainElement, document);
       prependTableToList(mainElement, document);
-      recreateList(mainElement, document);
-
+      recreateList(mainElement, document);          
+    processParagraphLinks(mainElement, document);  
       return main;
       
     },
