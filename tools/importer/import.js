@@ -197,7 +197,7 @@ function prependNewsSectionMetadata(document) {
   // ----------------------------------------------------------------------------
   function addLeftSection(document) {
     // Find the parent div with the class 'flex flex-wrap flex-col-reverse'
-    const parentDiv = document.querySelector('div.flex.flex-wrap.flex-col-reverse div.lg:block');
+    const parentDiv = document.querySelector('div.flex.flex-wrap.flex-col-reverse ');
     parentDiv.before(document.createElement('hr'));
     
     
@@ -346,7 +346,7 @@ function processParagraphLinks(main, document) {
     //     createCarouselSlidesTable(main, document, element);
     //   });
       const mainElement = document.querySelector('main');
-      createCardTable(mainElement, document);
+      //createCardTable(mainElement, document);
       prependTableHeader(mainElement, document);
       
     processParagraphLinks(mainElement, document);  
@@ -354,8 +354,7 @@ function processParagraphLinks(main, document) {
 
     addLeftSection(document);
     addRightSection(document);
-    // prependSection('.md:w-7/12.lg:w-7/12', 'news-left');
-    // prependSection('.md:w-5/12.md:pl-12.md:pb-0.lg:w-4/12.pb-8', 'right-section');
+
 
       return main;
       
