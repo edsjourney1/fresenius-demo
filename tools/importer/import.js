@@ -157,6 +157,44 @@ function prependTableHeader(main, document) {
     });
   }
   // ----------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------
+//Table import
+function prependNewsSectionMetadata(document) {
+    // Find the element with the 'main' class
+    const mainElement = document.querySelector('.main');
+    
+    if (!mainElement) {
+        console.error("No element with the class 'main' found.");
+        return;
+    }
+
+    // Create a new table element
+    const table = document.createElement('table');
+
+    // Create the first row
+    const firstRow = document.createElement('tr');
+    const firstRowCell = document.createElement('td');
+    firstRowCell.setAttribute('colspan', '2');
+    firstRowCell.textContent = 'Section Metadata';
+    firstRow.appendChild(firstRowCell);
+
+    // Create the second row
+    const secondRow = document.createElement('tr');
+    const styleCell = document.createElement('td');
+    styleCell.textContent = 'style';
+    const newsSectionCell = document.createElement('td');
+    newsSectionCell.textContent = 'news-section';
+    secondRow.appendChild(styleCell);
+    secondRow.appendChild(newsSectionCell);
+
+    // Append both rows to the table
+    table.appendChild(firstRow);
+    table.appendChild(secondRow);
+
+    // Prepend the table to the 'main' element
+    mainElement.prepend(table);
+}
+  // ----------------------------------------------------------------------------
   // List
   function prependTableToList(main, document) {
     // Select all unordered lists with the class 'list unordered' within the main element
@@ -249,11 +287,6 @@ function processParagraphLinks(main, document) {
       });
     });
   }
-  
- 
-  
-
-
 // -----------------------------------------------------------------------------
   export default {
     /**
@@ -287,6 +320,7 @@ function processParagraphLinks(main, document) {
       WebImporter.rules.transformBackgroundImages(main, document);
       WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
       WebImporter.rules.convertIcons(main, document);
+      
  
 
   
@@ -300,6 +334,7 @@ function processParagraphLinks(main, document) {
       prependTableToList(mainElement, document);
       recreateList(mainElement, document);          
     processParagraphLinks(mainElement, document);  
+    prependNewsSectionMetadata(document);
       return main;
       
     },
