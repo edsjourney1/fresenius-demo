@@ -350,7 +350,7 @@ function processParagraphLinks(main, document) {
       prependTableHeader(mainElement, document);
       
     processParagraphLinks(mainElement, document);  
-    prependNewsSectionMetadata(document);
+    //prependNewsSectionMetadata(document);
 
     addLeftSection(document);
     addRightSection(document);
