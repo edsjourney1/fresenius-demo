@@ -156,7 +156,41 @@ function prependTableHeader(main, document) {
       }
     });
   }
-console.log("hi"); 
+  // ----------------------------------------------------------------------------
+  // List
+  function prependTableToList(main, document) {
+    // Select all unordered lists with the class 'list unordered' within the main element
+    const lists = document.querySelectorAll('.list.unordered');
+    
+    lists.forEach((list) => {
+      // Create the table element
+      const table = document.createElement('table');
+      table.classList.add('metadata-table');
+  
+      // Create the first row
+      const firstRow = document.createElement('tr');
+      const firstRowCell = document.createElement('td');
+      firstRowCell.setAttribute('colspan', '2');
+      firstRowCell.textContent = 'Library Metadata';
+      firstRow.appendChild(firstRowCell);
+  
+      // Create the second row
+      const secondRow = document.createElement('tr');
+      const secondRowCell1 = document.createElement('td');
+      secondRowCell1.textContent = 'Name';
+      const secondRowCell2 = document.createElement('td');
+      secondRowCell2.textContent = 'List';
+      secondRow.appendChild(secondRowCell1);
+      secondRow.appendChild(secondRowCell2);
+  
+      // Append rows to the table
+      table.appendChild(firstRow);
+      table.appendChild(secondRow);
+  
+      // Insert the table before the list
+      list.insertAdjacentElement('beforebegin', table);
+    });
+  }
 // -----------------------------------------------------------------------------
   export default {
     /**
@@ -189,6 +223,8 @@ console.log("hi");
       WebImporter.rules.transformBackgroundImages(main, document);
       WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
       WebImporter.rules.convertIcons(main, document);
+      WebImporter.rules.prependTableToList(main, document);
+
   
     //   const carouselSlides = document.querySelectorAll('.carousel-slide');
     //   carouselSlides.forEach(element => {
@@ -197,7 +233,8 @@ console.log("hi");
       const mainElement = document.querySelector('main');
       createCardTable(mainElement, document);
       prependTableHeader(mainElement, document);
-
+      prependTableToList(mainElement, document)
+    
 
       return main;
       
