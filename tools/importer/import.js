@@ -197,7 +197,7 @@ function prependNewsSectionMetadata(document) {
   // ----------------------------------------------------------------------------
   function addLeftSection(document) {
     // Find the parent div with the class 'flex flex-wrap flex-col-reverse'
-    const parentDiv = document.querySelector('div.flex.flex-wrap.flex-col-reverse ');
+    const parentDiv = document.querySelector('.main ');
     parentDiv.before(document.createElement('hr'));
     
     
@@ -219,7 +219,7 @@ function prependNewsSectionMetadata(document) {
     const styleCell = document.createElement('td');
     styleCell.textContent = 'style';
     const leftSectionCell = document.createElement('td');
-    leftSectionCell.textContent = 'left-section';
+    leftSectionCell.textContent = 'left-news-section';
     secondRow.appendChild(styleCell);
     secondRow.appendChild(leftSectionCell);
 
@@ -255,7 +255,7 @@ function addRightSection(document) {
     const styleCell = document.createElement('td');
     styleCell.textContent = 'style';
     const leftSectionCell = document.createElement('td');
-    leftSectionCell.textContent = 'right-section';
+    leftSectionCell.textContent = 'right-news-section';
     secondRow.appendChild(styleCell);
     secondRow.appendChild(leftSectionCell);
 

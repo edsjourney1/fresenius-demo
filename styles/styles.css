@@ -272,3 +272,6 @@ main .section.highlight {
           max-width: 1680px;
       }
   }
+
+
+  @import url(./custom.css);
