@@ -329,7 +329,9 @@ function processParagraphLinks(main, document) {
         'footer',
         'iframe',
         'noscript',
-        ".breadcrumb"
+        ".breadcrumb",
+        '.lg\\:hidden',
+        '.md\\:hidden'
   
       ]);
   
