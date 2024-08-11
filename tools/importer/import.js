@@ -12,263 +12,87 @@
 /* global WebImporter */
 /* eslint-disable no-console, class-methods-use-this */
 
-const createCarouselSlidesTable = (main, document, element) => {
-    const slides = Array.from(document.querySelectorAll('.carousel-slide'));
-    let imgElement, link;
-    slides.forEach (slide => {
-        console.log(slide);
-        const button = slide.querySelector('.button-container').querySelector('a');
-        const image = slide.querySelector('.imageContainer');
-        if (button) {
-            const buttonText = button.textContent.trim();
-            const href = button.href;
-            link = document.createElement('a');
-            link.href = href;
-            link.textContent = buttonText;
-            slide.querySelector('.button-container').textContent = "";
-        } else {
-            link = "";
-        }
-        if (image) {
-            const imgSrc = image.querySelector('img').src;
-            const img = document.createElement('img');
-            img.src = imgSrc;
-            imgElement = img;
-        } else {
-            imgElement = "";
-        }
-        const heading = slide.querySelector('h3').textContent;
-        const content = slide.querySelector('p').textContent;
-        let cells = [
-            ['Carousel'],
-            ['Image', imgElement],,
-            ['Heading', heading],
-            ['Content', content],
-            ['Button', link]
-        ];
-        const table = WebImporter.DOMUtils.createTable(cells, document);
-        main.append(table);
-    });
-  }
-  // -----------------------------------------------------------------------------
-  // Card table function
-  const createCardTable = (main, document) => {
-    const cards = Array.from(document.querySelectorAll('.card'));
-    
-    // Create the table and the header row
-    const table = document.createElement('table');
-    const tbody = document.createElement('tbody');
-    
-    const headerRow = document.createElement('tr');
-    const headerCell = document.createElement('td');
-    headerCell.textContent = 'Card';
-    headerCell.colSpan = 2;
-    headerRow.append(headerCell);
-    tbody.append(headerRow);
-    
-    cards.forEach(card => {
-      // Extract image source
-      const imageElement = card.querySelector('img');
-      const imgSrc = imageElement ? imageElement.src : '';
-  
-      // Create an img element
-      let imgElement = '';
-      if (imgSrc) {
-        const img = document.createElement('img');
-        img.src = imgSrc;
-        imgElement = img;
-      }
-  
-      // Extract title
-      const titleElement = card.querySelector('h3');
-      const title = titleElement ? titleElement.textContent.trim() : '';
-  
-      // Extract description
-      const descriptionElement = card.querySelector('.md\\:line-clamp-3');
-      const description = descriptionElement ? descriptionElement.textContent.trim() : '';
-  
-      // Extract link
-      const linkElement = card.querySelector('a');
-      let link = '';
-      if (linkElement) {
-        const linkText = linkElement.textContent.trim();
-        const href = linkElement.href;
-        link = document.createElement('a');
-        link.href = href;
-        link.textContent = linkText;
-      }
-  
-      // Create a row for the card
-      const row = document.createElement('tr');
-      const imageCell = document.createElement('td');
-      const contentCell = document.createElement('td');
-      
-      if (imgElement) {
-        imageCell.append(imgElement);
-      }
-      
-      const contentDiv = document.createElement('div');
-      const heading = document.createElement('h3');
-      heading.textContent = title;
-      contentDiv.append(heading);
-      
-      const desc = document.createElement('p');
-      desc.textContent = description;
-      contentDiv.append(desc);
-      
-      if (link) {
-        contentDiv.append(link);
-      }
-      
-      contentCell.append(contentDiv);
-      row.append(imageCell);
-      row.append(contentCell);
-      
-      tbody.append(row);
-    });
-    
-    table.append(tbody);
-    main.append(table);
-  };
-  
-  // -----------------------------------------------------------------------------
-//Table import
-function prependTableHeader(main, document) {
-    // Select all tables with the class 'contenttable'
-    const tables = document.querySelectorAll('.contenttable');
-    
-    tables.forEach((table) => {
-      // Create a new row
-      const newRow = document.createElement('tr');
-      
-      // Create a new cell
-      const newCell = document.createElement('td');
-      newCell.textContent = 'Table (bordered)';
-      newCell.colSpan = 2;
-      
-      // Append the cell to the row
-      newRow.appendChild(newCell);
-      
-      // Insert the new row at the top of the table body
-      const tbody = table.querySelector('tbody');
-      if (tbody) {
-        tbody.insertBefore(newRow, tbody.firstChild);
-      }
-    });
-  }
-  // ----------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------
-//Table import
-function prependNewsSectionMetadata(document) {
-    // Find the element with the 'main' class
-    const mainElement = document.querySelector('.main');
-    
-    if (!mainElement) {
-        console.error("No element with the class 'main' found.");
-        return;
-    }
 
-    // Create a new table element
-    const table = document.createElement('table');
+  
+// ----------------------------------------------------------------------------
+function addTextSection(document) {
+  // Find all elements with the class 'fmccontent_editorial_textonly'
+  const elements = document.querySelectorAll('.fmccontent_editorial_textonly');
 
-    // Create the first row
-    const firstRow = document.createElement('tr');
-    const firstRowCell = document.createElement('td');
-    firstRowCell.setAttribute('colspan', '2');
-    firstRowCell.textContent = 'Section Metadata';
-    firstRow.appendChild(firstRowCell);
+  // Iterate over each element
+  elements.forEach(parentDiv => {
+      // Insert an <hr> before each parentDiv
+      parentDiv.before(document.createElement('hr'));
 
-    // Create the second row
-    const secondRow = document.createElement('tr');
-    const styleCell = document.createElement('td');
-    styleCell.textContent = 'style';
-    const newsSectionCell = document.createElement('td');
-    newsSectionCell.textContent = 'news-section';
-    secondRow.appendChild(styleCell);
-    secondRow.appendChild(newsSectionCell);
+      // Create a new table element
+      const table = document.createElement('table');
 
-    // Append both rows to the table
-    table.appendChild(firstRow);
-    table.appendChild(secondRow);
+      // Create the first row
+      const firstRow = document.createElement('tr');
+      const firstRowCell = document.createElement('td');
+      firstRowCell.setAttribute('colspan', '2');
+      firstRowCell.textContent = 'Section Metadata';
+      firstRow.appendChild(firstRowCell);
 
-    // Prepend the table to the 'main' element
-    mainElement.prepend(table);
+      // Create the second row
+      const secondRow = document.createElement('tr');
+      const styleCell = document.createElement('td');
+      styleCell.textContent = 'style';
+      const leftSectionCell = document.createElement('td');
+      leftSectionCell.textContent = 'text-section';
+      secondRow.appendChild(styleCell);
+      secondRow.appendChild(leftSectionCell);
+
+      // Append both rows to the table
+      table.appendChild(firstRow);
+      table.appendChild(secondRow);
+
+      // Prepend the table to the element
+      parentDiv.prepend(table);
+  });
 }
-  // ----------------------------------------------------------------------------
-  function addLeftSection(document) {
-    // Find the parent div with the class 'flex flex-wrap flex-col-reverse'
-    const parentDiv = document.querySelector('.main ');
-    parentDiv.before(document.createElement('hr'));
-    
-    
-    if (!parentDiv) {
-        console.error("No div with the class 'flex flex-wrap flex-col-reverse' found.");
-        return;
-    }
-    const table = document.createElement('table');
-
-    // Create the first row
-    const firstRow = document.createElement('tr');
-    const firstRowCell = document.createElement('td');
-    firstRowCell.setAttribute('colspan', '2');
-    firstRowCell.textContent = 'Section Metadata';
-    firstRow.appendChild(firstRowCell);
-
-    // Create the second row
-    const secondRow = document.createElement('tr');
-    const styleCell = document.createElement('td');
-    styleCell.textContent = 'style';
-    const leftSectionCell = document.createElement('td');
-    leftSectionCell.textContent = 'left-news-section';
-    secondRow.appendChild(styleCell);
-    secondRow.appendChild(leftSectionCell);
-
-    // Append both rows to the table
-    table.appendChild(firstRow);
-    table.appendChild(secondRow);
-
-    // Prepend the table to the first child div of the parent div
-    parentDiv.prepend(table);
-    
-}
-function addRightSection(document) {
-    // Find the parent div with the class 'flex flex-wrap flex-col-reverse'
-    const parentDiv = document.querySelector('div.pb-8');
-    parentDiv.before(document.createElement('hr'));
-    
-    
-    if (!parentDiv) {
-        console.error("No div with the class 'flex flex-wrap flex-col-reverse' found.");
-        return;
-    }
-    const table = document.createElement('table');
-
-    // Create the first row
-    const firstRow = document.createElement('tr');
-    const firstRowCell = document.createElement('td');
-    firstRowCell.setAttribute('colspan', '2');
-    firstRowCell.textContent = 'Section Metadata';
-    firstRow.appendChild(firstRowCell);
-
-    // Create the second row
-    const secondRow = document.createElement('tr');
-    const styleCell = document.createElement('td');
-    styleCell.textContent = 'style';
-    const leftSectionCell = document.createElement('td');
-    leftSectionCell.textContent = 'right-news-section';
-    secondRow.appendChild(styleCell);
-    secondRow.appendChild(leftSectionCell);
-
-    // Append both rows to the table
-    table.appendChild(firstRow);
-    table.appendChild(secondRow);
-
-    // Prepend the table to the first child div of the parent div
-    parentDiv.prepend(table);
-    
-}
-
 //---------------------------------------------------------------------------
+//Section Break functionality
+function addSectionTable(document, parentClass, metadataText, styleText, sectionText) {
+  // Find the parent div with the specified class
+  const parentDiv = document.querySelector(`.${parentClass}`);
+
+  if (!parentDiv) {
+      console.error(`No div with the class '${parentClass}' found.`);
+      return;
+  }
+
+  // Optionally, insert an <hr> before the element
+  parentDiv.before(document.createElement('hr'));
+
+  // Create a new table element
+  const table = document.createElement('table');
+
+  // Create the first row
+  const firstRow = document.createElement('tr');
+  const firstRowCell = document.createElement('td');
+  firstRowCell.setAttribute('colspan', '2');
+  firstRowCell.textContent = metadataText;
+  firstRow.appendChild(firstRowCell);
+
+  // Create the second row
+  const secondRow = document.createElement('tr');
+  const styleCell = document.createElement('td');
+  styleCell.textContent = styleText;
+  const sectionCell = document.createElement('td');
+  sectionCell.textContent = sectionText;
+  secondRow.appendChild(styleCell);
+  secondRow.appendChild(sectionCell);
+
+  // Append both rows to the table
+  table.appendChild(firstRow);
+  table.appendChild(secondRow);
+
+  // Prepend the table to the first child div of the parent div
+  parentDiv.prepend(table);
+}
+
+//---------------------------------------------------------------------
 //recreate paragraph links
 function processParagraphLinks(main, document) {
     // Select all <p> tags within the main element
@@ -305,6 +129,128 @@ function processParagraphLinks(main, document) {
       });
     });
   }
+
+//----------------------------------------------------------
+//Sustainibility two collayout with image
+// Card table function
+function prependTableToEditorialPageIntro(document) {
+  // Find the element with the class 'fmccontent_editorialpageintro'
+  const editorialElement = document.querySelector('.fmccontent_editorialpageintro');
+
+  if (!editorialElement) {
+      console.error("No element with the class 'fmccontent_editorialpageintro' found.");
+      return;
+  }
+
+  // Find the image and text within the identified element
+  const imgElement = editorialElement.querySelector('img');
+  const headingElement = editorialElement.querySelector('h2');
+
+  if (!imgElement || !headingElement) {
+      console.error("No image or heading found within the 'fmccontent_editorialpageintro' element.");
+      return;
+  }
+
+  // Create a new table element
+  const table = document.createElement('table');
+  table.style.width = "100%"; // Ensure the table takes up full width if desired
+
+  // Create the first row with colspan
+  const firstRow = document.createElement('tr');
+  const firstRowCell = document.createElement('td');
+  firstRowCell.setAttribute('colspan', '2');
+  firstRowCell.textContent = 'Columns';
+  firstRow.appendChild(firstRowCell);
+
+  // Create the second row with two columns
+  const secondRow = document.createElement('tr');
+
+  // First column for the image
+  const imgCell = document.createElement('td');
+  const imgTag = document.createElement('img');
+  imgTag.src = imgElement.src;
+  imgTag.alt = imgElement.alt;
+  imgTag.style.width = "100%"; // Make sure the image fits well in the table cell
+  imgCell.appendChild(imgTag);
+  secondRow.appendChild(imgCell);
+
+  // Second column for the heading
+  const headingCell = document.createElement('td');
+  headingCell.appendChild(headingElement.cloneNode(true)); // Clone the heading element and append it
+  secondRow.appendChild(headingCell);
+
+  // Append both rows to the table
+  table.appendChild(firstRow);
+  table.appendChild(secondRow);
+
+  // Prepend the table to the 'fmccontent_editorialpageintro' element
+  const introChild = document.querySelector('.fmccontent_editorialpageintro div');
+  introChild.replaceWith(table);
+
+}
+//--------------------------------------------------
+// Relevant COntent
+function createRelatedCardsTable(document) {
+  // Find the element with the 'fmccontent_teaser_relatedcontent' class
+  const relatedContentDiv = document.querySelector('.fmccontent_teaser_relatedcontent');
+
+  if (!relatedContentDiv) {
+      console.error("No element with the class 'fmccontent_teaser_relatedcontent' found.");
+      return;
+  }
+
+  // Create the table and add the header row
+  const table = document.createElement('table');
+
+  const headerRow = document.createElement('tr');
+  const headerCell = document.createElement('td');
+  headerCell.setAttribute('colspan', '2');
+  headerCell.textContent = 'Cards';
+  headerRow.appendChild(headerCell);
+  table.appendChild(headerRow);
+
+  // Iterate over each .pb-8 div and create rows for the table
+  const pb8Divs = relatedContentDiv.querySelectorAll('.pb-8');
+
+  pb8Divs.forEach(pb8Div => {
+      const row = document.createElement('tr');
+
+      // First column: Image wrapped in a link
+      const imageCol = document.createElement('td');
+      const imageLink = pb8Div.querySelector('a');
+      if (imageLink) {
+          const imgElement = imageLink.querySelector('img');
+          if (imgElement) {
+              const imgClone = imgElement.cloneNode(true);
+              imageLink.innerHTML = ''; // Clear the content inside the anchor tag
+              imageLink.appendChild(imgClone); // Append the cloned image inside the anchor tag
+              imageCol.appendChild(imageLink.cloneNode(true)); // Append the anchor tag with image inside the table cell
+          }
+      }
+      row.appendChild(imageCol);
+
+      // Second column: Heading with link and description
+      const contentCol = document.createElement('td');
+      const headingLink = pb8Div.querySelector('h3 a');
+      if (headingLink) {
+          const headingLinkClone = headingLink.cloneNode(true);
+          contentCol.appendChild(headingLinkClone);
+      }
+      const description = pb8Div.querySelector('p');
+      if (description) {
+          const descriptionClone = description.cloneNode(true);
+          contentCol.appendChild(document.createElement('br')); // Add a line break
+          contentCol.appendChild(descriptionClone);
+      }
+      row.appendChild(contentCol);
+
+      table.appendChild(row);
+  });
+
+  // Replace the first child of the related content div with the table
+  const relatedChildDiv = relatedContentDiv.querySelector('div');
+  relatedChildDiv.replaceWith(table);
+}
 // -----------------------------------------------------------------------------
   export default {
     /**
@@ -339,24 +285,16 @@ function processParagraphLinks(main, document) {
       WebImporter.rules.transformBackgroundImages(main, document);
       WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
       WebImporter.rules.convertIcons(main, document);
-      
- 
 
-  
-    //   const carouselSlides = document.querySelectorAll('.carousel-slide');
-    //   carouselSlides.forEach(element => {
-    //     createCarouselSlidesTable(main, document, element);
-    //   });
       const mainElement = document.querySelector('main');
-      //createCardTable(mainElement, document);
-      prependTableHeader(mainElement, document);
-      
-    processParagraphLinks(mainElement, document);  
-    //prependNewsSectionMetadata(document);
 
-    addLeftSection(document);
-    addRightSection(document);
+      addSectionTable(document, 'fmccontent_teaser_relatedcontent', 'Section Metadata', 'style', 'related-section');
+      addSectionTable(document, 'fmccontent_editorialpageintro', 'Section Metadata', 'style', 'home-twocol-img-text');
+      processParagraphLinks(mainElement, document);  
+      addTextSection(document);
 
+      prependTableToEditorialPageIntro(document)
+      createRelatedCardsTable(document);
 
       return main;
       

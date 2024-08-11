@@ -75,3 +75,17 @@
 .cards .cards-card-body .button-container .button:hover {
   text-decoration-line: underline;
 }
+.section.related-section.cards-container{
+  background-color:#e5ecf2 ;
+  padding: 48px;
+}
+main > .section.related-section.cards-container > div{
+  padding: 0;;
+}
+main > .section.related-section.cards-container > div .cards > ul > li:first-of-type{
+  background-color: transparent;
+  color: var(--text-color);
+}
+main > .section.related-section.cards-container > div .cards > ul > li:first-of-type .cards-card-body .button-container .button{
+  color: var(--text-color);
+}
