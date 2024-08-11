@@ -89,3 +89,9 @@ main > .section.related-section.cards-container > div .cards > ul > li:first-of-
 main > .section.related-section.cards-container > div .cards > ul > li:first-of-type .cards-card-body .button-container .button{
   color: var(--text-color);
 }
+
+main > .section.related-section.cards-container > div .cards > ul .cards > ul{
+  grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+  grid-gap: 20%;
+
+}
