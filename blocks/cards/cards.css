@@ -90,7 +90,7 @@ main > .section.related-section.cards-container > div .cards > ul > li:first-of-
   color: var(--text-color);
 }
 
-main > .section.related-section.cards-container > div .cards > ul .cards > ul{
+main  .section.related-section.cards-container  .cards  ul{
   grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
   grid-gap: 20%;
 
