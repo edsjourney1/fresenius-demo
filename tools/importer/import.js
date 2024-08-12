@@ -144,7 +144,7 @@ function prependTableToEditorialPageIntro(document) {
 
   // Find the image and text within the identified element
   const imgElement = editorialElement.querySelector('img');
-  const headingElement = editorialElement.querySelector('h2');
+  const headingElement = editorialElement.querySelector('.p-4');
 
   if (!imgElement || !headingElement) {
       console.error("No image or heading found within the 'fmccontent_editorialpageintro' element.");
@@ -229,12 +229,92 @@ function createRelatedCardsTable(document) {
       }
       row.appendChild(imageCol);
 
+
+        // Second column: Heading with link and description
+        const contentCol = document.createElement('td');
+        const cardHdngText = pb8Div.querySelector('h3');
+        const headingLink = pb8Div.querySelector('h3 a');
+        if (headingLink) {
+            const headingLinkClone = headingLink.cloneNode(true);
+            cardHdngText.appendChild(headingLinkClone)
+            contentCol.appendChild(cardHdngText);
+        }
+      const description = pb8Div.querySelector('p');
+      if (description) {
+          const descriptionClone = description.cloneNode(true);
+
+          contentCol.appendChild(descriptionClone);
+      }
+      row.appendChild(contentCol);
+
+      table.appendChild(row);
+  });
+
+  // Replace the first child of the related content div with the table
+  const relatedChildDiv = relatedContentDiv.querySelector('div');
+  relatedChildDiv.replaceWith(table);
+}
+//________________________________________________
+function createRelatedCardsHdng(document) {
+  // Find the element with the 'fmccontent_teaser_relatedcontent' class
+  const relatedContentDiv = document.querySelector('.fmccontent_teaser_relatedcontent');
+
+  if (!relatedContentDiv) {
+      console.error("No element with the class 'fmccontent_teaser_relatedcontent' found.");
+      return;
+  }
+
+  // Extract the heading text from the .heading-3 div
+  const headingDiv = relatedContentDiv.querySelector('.heading-3');
+  let headingText = '';
+  if (headingDiv) {
+      headingText = headingDiv.textContent.trim();
+  }
+
+  // Create an h3 element with the heading text
+  const h3 = document.createElement('h3');
+  h3.textContent = headingText;
+
+  // Create the table element
+  const table = document.createElement('table');
+  table.style.width = "100%"; // Ensure the table takes up full width if desired
+
+  // Create the table header row
+  const headerRow = document.createElement('tr');
+  const headerCell = document.createElement('td');
+  headerCell.setAttribute('colspan', '2');
+  headerCell.textContent = 'Cards';
+  headerRow.appendChild(headerCell);
+  table.appendChild(headerRow);
+
+  // Iterate over each .pb-8 div and create rows for the table
+  const pb8Divs = relatedContentDiv.querySelectorAll('.w-10\\/12'); // Using the specific class for each card
+
+  pb8Divs.forEach(pb8Div => {
+      const row = document.createElement('tr');
+
+      // First column: Image wrapped in a new anchor
+      const imageCol = document.createElement('td');
+      const originalAnchor = pb8Div.querySelector('a');
+      const imgElement = originalAnchor.querySelector('img');
+
+      if (originalAnchor && imgElement) {
+          const newAnchor = document.createElement('a');
+          newAnchor.href = originalAnchor.href; // Set the href of the new anchor
+          newAnchor.appendChild(imgElement.cloneNode(true)); // Append the cloned image inside the new anchor
+          imageCol.appendChild(newAnchor); // Append the new anchor inside the table cell
+      }
+
+      row.appendChild(imageCol);
+
       // Second column: Heading with link and description
       const contentCol = document.createElement('td');
+      const cardHdngText = pb8Div.querySelector('h3');
       const headingLink = pb8Div.querySelector('h3 a');
       if (headingLink) {
           const headingLinkClone = headingLink.cloneNode(true);
-          contentCol.appendChild(headingLinkClone);
+          cardHdngText.appendChild(headingLinkClone)
+          contentCol.appendChild(cardHdngText);
       }
       const description = pb8Div.querySelector('p');
       if (description) {
@@ -247,10 +327,13 @@ function createRelatedCardsTable(document) {
       table.appendChild(row);
   });
 
-  // Replace the first child of the related content div with the table
-  const relatedChildDiv = relatedContentDiv.querySelector('div');
-  relatedChildDiv.replaceWith(table);
+  // Clear the content and add the new heading and table
+  relatedContentDiv.innerHTML = ''; // Clear the original content
+  relatedContentDiv.appendChild(h3); // Add the heading
+  relatedContentDiv.appendChild(table); // Add the table
 }
+
+
 // -----------------------------------------------------------------------------
   export default {
     /**
@@ -294,7 +377,10 @@ function createRelatedCardsTable(document) {
       addTextSection(document);
 
       prependTableToEditorialPageIntro(document)
+      
+
       createRelatedCardsTable(document);
+      //createRelatedCardsHdng(document);
 
       return main;
       

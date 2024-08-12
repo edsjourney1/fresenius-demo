@@ -95,3 +95,19 @@ main  .section.related-section.cards-container  .cards  ul{
   grid-gap: 20%;
 
 }
+.section.home-twocol-img-text .columns .columns-img-col + div h2{
+  width: 75%;
+  margin-left: 90px;
+}
+main  .section.related-section .cards-card-image a{
+  display: none;
+}
+main  .section.related-section .cards-card-body{
+  padding:5px 0;
+}
+
+main  .section.related-section .cards-card-body h3,
+main  .section.related-section .cards-card-image p{margin:0;}
+main  .section.related-section  .cards .cards-card-body p:first-of-type{
+  color:var(--text-color);
+}
