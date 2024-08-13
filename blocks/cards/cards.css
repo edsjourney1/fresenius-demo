@@ -92,7 +92,7 @@ main > .section.related-section.cards-container > div .cards > ul > li:first-of-
 
 main  .section.related-section.cards-container  .cards  ul{
   grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
-  grid-gap: 20%;
+  grid-gap: 0%;
 
 }
 .section.home-twocol-img-text .columns .columns-img-col + div h2{
@@ -111,3 +111,4 @@ main  .section.related-section .cards-card-image p{margin:0;}
 main  .section.related-section  .cards .cards-card-body p:first-of-type{
   color:var(--text-color);
 }
+main > .section.related-section.cards-container > div .cards > ul li {margin-right:90px}
