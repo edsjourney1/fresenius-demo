@@ -3,7 +3,7 @@
 .left-news-section{float:left;width:66%}
 .right-news-section{float:right;width:33%}
 .news-section{width:1680px;clear:both;overflow: auto;}
-main{max-width: 1600px;margin:0 auto;}
+main{max-width: 1680px;margin:0 auto;}
 .section.text-section{
     display: flex;
     justify-content: flex-start;

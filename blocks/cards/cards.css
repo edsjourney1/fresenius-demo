@@ -78,6 +78,7 @@
 .section.related-section.cards-container{
   background-color:#e5ecf2 ;
   padding: 48px;
+  margin-top:80px
 }
 main > .section.related-section.cards-container > div{
   padding: 0;;
@@ -99,16 +100,28 @@ main  .section.related-section.cards-container  .cards  ul{
   width: 75%;
   margin-left: 90px;
 }
-main  .section.related-section .cards-card-image a{
+/* main  .section.related-section .cards-card-image a{
   display: none;
-}
+} */
 main  .section.related-section .cards-card-body{
   padding:5px 0;
 }
 
 main  .section.related-section .cards-card-body h3,
 main  .section.related-section .cards-card-image p{margin:0;}
+
+main  .section.related-section .cards-card-image img{aspect-ratio: auto;}
+main  .section.related-section .cards-card-image {margin-bottom:16px;}
 main  .section.related-section  .cards .cards-card-body p:first-of-type{
   color:var(--text-color);
 }
+main  .section.related-section  .cards .cards-card-body p{
+  margin-bottom: 32px;
+}
 main > .section.related-section.cards-container > div .cards > ul li {margin-right:90px}
+main > .section.related-section.cards-container .default-content-wrapper h3 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  padding-bottom: 1.5rem;
+  margin: 0;
+}

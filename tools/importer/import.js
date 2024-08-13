@@ -193,6 +193,16 @@ function prependTableToEditorialPageIntro(document) {
 function createRelatedCardsTable(document) {
   // Find the element with the 'fmccontent_teaser_relatedcontent' class
   const relatedContentDiv = document.querySelector('.fmccontent_teaser_relatedcontent');
+  // Extract the heading text from the .heading-3 div
+  const headingDiv = relatedContentDiv.querySelector('.fmccontent_teaser_relatedcontent .heading-3');
+  let headingText = '';
+  if (headingDiv) {
+      headingText = headingDiv.textContent.trim();
+  }
+  // Create an h3 element with the heading text
+  const h3 = document.createElement('h3');
+  h3.textContent = headingText;
+
 
   if (!relatedContentDiv) {
       console.error("No element with the class 'fmccontent_teaser_relatedcontent' found.");
@@ -241,12 +251,6 @@ function createRelatedCardsTable(document) {
         }
         headingLink.remove();
 
-
-
-
-
-
-
       const description = pb8Div.querySelector('p');
       if (description) {
           const descriptionClone = description.cloneNode(true);
@@ -261,6 +265,7 @@ function createRelatedCardsTable(document) {
   // Replace the first child of the related content div with the table
   const relatedChildDiv = relatedContentDiv.querySelector('div');
   relatedChildDiv.replaceWith(table);
+  table.appendChild(h3); // Add the heading
 }
 //________________________________________________
 function createRelatedCardsHdng(document) {
@@ -381,6 +386,7 @@ function createRelatedCardsHdng(document) {
 
       addSectionTable(document, 'fmccontent_teaser_relatedcontent', 'Section Metadata', 'style', 'related-section');
       addSectionTable(document, 'fmccontent_editorialpageintro', 'Section Metadata', 'style', 'home-twocol-img-text');
+
       processParagraphLinks(mainElement, document);  
       addTextSection(document);
 
