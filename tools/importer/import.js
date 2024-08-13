@@ -385,7 +385,7 @@ function createRelatedCardsHdng(document) {
       const mainElement = document.querySelector('main');
 
       addSectionTable(document, 'fmccontent_teaser_relatedcontent', 'Section Metadata', 'style', 'related-section');
-      addSectionTable(document, 'fmccontent_editorialpageintro', 'Section Metadata', 'style', 'home-twocol-img-text');
+      addSectionTable(document, 'fmccontent_editorialpageintro', 'Section Metadata', 'style', 'home-twocol-img-text, inner-page');
 
       processParagraphLinks(mainElement, document);  
       addTextSection(document);

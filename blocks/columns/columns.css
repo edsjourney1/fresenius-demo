@@ -260,3 +260,6 @@
 main > .section.home-twocol-img-text.columns-container > div{
   padding:0;
 }
+.section.home-twocol-img-text.inner-page .columns > div{
+  align-items: end;
+}
