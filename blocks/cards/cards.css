@@ -125,3 +125,6 @@ main > .section.related-section.cards-container .default-content-wrapper h3 {
   padding-bottom: 1.5rem;
   margin: 0;
 }
+main > .section.related-section.cards-container > div .cards > ul > li:hover > .cards-card-image{
+  box-shadow: none;
+}
