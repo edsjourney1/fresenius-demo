@@ -239,6 +239,14 @@ function createRelatedCardsTable(document) {
             cardHdngText.appendChild(headingLinkClone)
             contentCol.appendChild(cardHdngText);
         }
+        headingLink.remove();
+
+
+
+
+
+
+
       const description = pb8Div.querySelector('p');
       if (description) {
           const descriptionClone = description.cloneNode(true);
