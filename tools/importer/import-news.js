@@ -270,6 +270,50 @@ function addRightSection(document) {
 
 //---------------------------------------------------------------------------
 //recreate paragraph links
+// function processParagraphLinks(main, document) {
+//   // Select all <p> tags within the main element
+//   const paragraphs = main.querySelectorAll('p');
+
+//   paragraphs.forEach((p) => {
+//     // Select all <a> tags within each <p> tag
+//     const links = p.querySelectorAll('a');
+
+//     links.forEach((link) => {
+//       // Extract the href and text content of the <a> tag
+//       const href = link.href;
+//       let text = link.textContent;
+
+
+//       // Check if the link has the 'pdf' or 'external' class
+//       if (link.classList.contains('pdf')) {
+//         text += ' :pdf:'; // Append :pdf: to the text
+//       }
+//       if (link.classList.contains('external')) {
+//         text += ' :external:'; // Append :external: to the text
+//       }
+
+//       // Create a new <a> element
+//       const newLink = document.createElement('a');
+//       newLink.href = href;
+//       newLink.textContent = text;
+
+//       // Add any existing classes or attributes from the original link
+//       Array.from(link.attributes).forEach(attr => {
+//         if (attr.name !== 'href') {  // Exclude href as it's already set
+//           newLink.setAttribute(attr.name, attr.value);
+//         }
+//       });
+
+//       // Check if the original link has the 'external' class
+//       if (link.classList.contains('external')) {
+//         newLink.classList.add('external');
+//       }
+
+//       // Replace the original <a> tag with the new one
+//       p.replaceChild(newLink, link);
+//     });
+//   });
+// }
 function processParagraphLinks(main, document) {
   // Select all <p> tags within the main element
   const paragraphs = main.querySelectorAll('p');
@@ -295,9 +339,17 @@ function processParagraphLinks(main, document) {
         }
       });
 
-      // Check if the original link has the 'external' class
-      if (link.classList.contains('external')) {
-        newLink.classList.add('external');
+      // Create a text node for :pdf: or :external: if applicable
+      let prefixText = null;
+      if (link.classList.contains('pdf')) {
+        prefixText = document.createTextNode(':pdf: ');
+      } else if (link.classList.contains('external')) {
+        prefixText = document.createTextNode(':external: ');
+      }
+
+      // If a prefix text is created, insert it before the new link
+      if (prefixText) {
+        p.insertBefore(prefixText, link);
       }
 
       // Replace the original <a> tag with the new one
@@ -305,6 +357,7 @@ function processParagraphLinks(main, document) {
     });
   });
 }
+
 // -----------------------------------------------------------------------------
 export default {
   /**
