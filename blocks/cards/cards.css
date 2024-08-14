@@ -98,7 +98,7 @@ main  .section.related-section.cards-container  .cards  ul{
 }
 .section.home-twocol-img-text .columns .columns-img-col + div h2{
   width: 75%;
-  margin-left: 90px;
+  margin-left: 0px;
 }
 /* main  .section.related-section .cards-card-image a{
   display: none;
