@@ -77,7 +77,34 @@ function buildAutoBlocks(main) {
     console.error('Auto Blocking failed', error);
   }
 }
+//Modal function starts
+function decorateExampleModals(main) {
+  const simpleModalButton = main.querySelector('a.button[href="http://modal-demo.simple"]');
+  const customModalButton = main.querySelector('a.button[href="http://modal-demo.custom"]');
 
+  // Listens to the simple modal button
+  simpleModalButton.addEventListener('click', async (e) => {
+    e.preventDefault();
+    // Modals can be imported on-demand to prevent loading unnecessary code
+    const { default: getModal } = await import('./modal/modal.js');
+    const simpleModal = await getModal('simple-modal', () => '<h2>Simple Modal Content</h2>');
+    simpleModal.showModal();
+  });
+
+  // Listens to the custom modal button
+  customModalButton.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const { default: getModal } = await import('./modal/modal.js');
+    const customModal = await getModal('custom-modal', () => `
+      <h2>Custom Modal</h2>
+      <p>This is some content in the custom modal.</p>
+      <button name="close-modal">Close Modal</button>
+    `, (modal) => {
+      modal.querySelector('button[name="close-modal"]').addEventListener('click', () => modal.close());
+    });
+    customModal.showModal();
+  });
+}
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -90,6 +117,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  decorateExampleModals(main);
 }
 
 /**
