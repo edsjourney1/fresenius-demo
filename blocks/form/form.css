@@ -1,0 +1,138 @@
+main input,
+main textarea,
+main select {
+  font-size: 1.25rem;
+  width: 100%;
+  max-width: 50rem;
+  display: block;
+  margin-bottom: 1rem;
+  padding: 0.75rem 0.6rem;
+  border-radius: 0.25rem;
+  box-sizing: border-box;
+  border: 1px solid var(--text-color);
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+/* main input:hover {
+  border: 1px solid var(--text-color);
+} */
+
+/* main input[type="radio"] {
+  width: auto;
+  display: inline-block;
+  margin-right: 10px;
+} */
+
+.form-checkbox-wrapper input[type="checkbox"] , .form-radio-wrapper input[type="radio"] {
+  display: none;
+}
+
+
+.form-checkbox-wrapper label, .form-radio-wrapper label {
+  display: inline-block;
+  padding: 14px 28px;
+  background-color: #fff;
+  color: black;
+  border: none;
+  border-color: #000048;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 2px solid #000048;
+  font-size: 20px;
+  line-height: 20px;
+  transition: border 2s;
+}
+
+
+.form-checkbox-wrapper label:hover, .form-label-wrapper label:hover {
+  background-color: #ccc;
+  color: #fff;
+  border: 3px solid #fff;
+}
+
+
+.form-checkbox-wrapper input[type="checkbox"]:checked+label, 
+.form-radio-wrapper input[type="radio"]:checked+label {
+  background-color: #ccc;
+  border-color: #fff;
+  color: #000;
+}
+
+.form-checkbox-wrapper.field-wrapper, .form-radio-wrapper.field-wrapper {
+  margin-right: 20px;
+  margin-bottom: 40px;
+  display: inline-block;
+}
+
+.form-label-wrapper label.field-label {
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.form-label-wrapper.field-wrapper {
+  margin-bottom: 36px;
+}
+
+.form.block {
+  background: transparent;
+  padding: 40px;
+  min-height: 450px;
+  color:#fff;
+  position: relative;
+}
+
+/* .form-wrapper {
+  max-height: 600px;
+  height: calc(100vh - 100px);
+} */
+
+.form-submit-wrapper.form-submit.field-wrapper,
+.form-next {
+  position: absolute;
+  bottom: 20px;
+  right: 40px;
+}
+
+.form-back {
+  position: absolute;
+  bottom: 20px;
+  left: 40px;
+}
+
+/* .form-submit-wrapper.form-submit.field-wrapper button,
+.form-next button {
+  background-color: #11c7cc;
+  color: #000048;
+  font-size: 20px;
+  /* line-height: 20px; */
+  /* padding: 14px 24px; */
+/* }  */
+
+fieldset.form-fieldset-wrapper {
+  border: none;
+  padding: 0
+}
+
+fieldset.form-fieldset-wrapper legend.field-label {
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 50px;
+}
+
+fieldset {
+  display: none;
+}
+
+fieldset.active {
+  display: block;
+}
+
+fieldset:last-child .form-next {
+  display: none;
+}
+
+#submit {
+  display: none;
+}
